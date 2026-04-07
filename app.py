@@ -207,7 +207,13 @@ def delete_note(nid):
     conn.close()
     return jsonify({'message': 'Note deleted'})
 
+#if __name__ == '__main__':
+#    init_db()
+#    print('  NotesVault → http://localhost:5000')
+#    app.run(debug=True, port=5000) 
+
 if __name__ == '__main__':
     init_db()
-    print('  NotesVault → http://localhost:5000')
-    app.run(debug=True, port=5000)
+    port = int(os.environ.get('PORT', 5000))  # Render sets PORT
+    app.run(host='0.0.0.0', port=port, debug=False)  # Bind to all interfaces
+    print(f'  NotesVault → http://0.0.0.0:{port}')
