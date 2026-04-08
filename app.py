@@ -285,7 +285,7 @@ def get_notes():
     search = request.args.get('search', '').strip()
 
     q = '''SELECT id, title, content, tags, created_at, updated_at,
-           CASE WHEN drawing IS NOT NULL AND drawing != '' THEN 1 ELSE 0 END as has_drawing
+           CASE WHEN COALESCE(drawing, '') != '' THEN 1 ELSE 0 END as has_drawing
            FROM notes WHERE user_id = ?'''
     p = [session['user_id']]
 
